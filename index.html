@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bucks2Bar - Budget Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Bucks2Bar</p>
+        <h1>Bucks2Bar - Budget Tracker</h1>
+        <p class="intro">Enter your monthly INR income and expenses, then switch to the chart tab to compare performance at a glance.</p>
+      </div>
+    </header>
+
+    <nav class="tab-nav" role="tablist" aria-label="Bucks2Bar tabs">
+      <button id="tab-data" class="tab-button active" role="tab" aria-selected="true" aria-controls="data-panel">Data</button>
+      <button id="tab-chart" class="tab-button" role="tab" aria-selected="false" aria-controls="chart-panel">Chart</button>
+    </nav>
+
+    <main class="tab-content">
+      <section id="data-panel" class="tab-panel active" role="tabpanel" aria-labelledby="tab-data">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h2>Income & Expense Inputs</h2>
+            <p>Enter amounts in INR. The chart updates automatically as you type.</p>
+          </div>
+
+          <div class="table-wrapper">
+            <div class="grid-header">
+              <span>Month</span>
+              <span>Income (INR)</span>
+              <span>Expense (INR)</span>
+            </div>
+            <div class="grid-body" id="inputs-grid">
+              <div class="grid-row">
+                <span>January</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Jan" value="750" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Jan" value="520" />
+              </div>
+              <div class="grid-row">
+                <span>February</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Feb" value="680" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Feb" value="450" />
+              </div>
+              <div class="grid-row">
+                <span>March</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Mar" value="920" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Mar" value="780" />
+              </div>
+              <div class="grid-row">
+                <span>April</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Apr" value="850" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Apr" value="620" />
+              </div>
+              <div class="grid-row">
+                <span>May</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="May" value="990" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="May" value="710" />
+              </div>
+              <div class="grid-row">
+                <span>June</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Jun" value="560" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Jun" value="380" />
+              </div>
+              <div class="grid-row">
+                <span>July</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Jul" value="800" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Jul" value="590" />
+              </div>
+              <div class="grid-row">
+                <span>August</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Aug" value="720" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Aug" value="540" />
+              </div>
+              <div class="grid-row">
+                <span>September</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Sep" value="880" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Sep" value="650" />
+              </div>
+              <div class="grid-row">
+                <span>October</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Oct" value="640" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Oct" value="470" />
+              </div>
+              <div class="grid-row">
+                <span>November</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Nov" value="760" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Nov" value="580" />
+              </div>
+              <div class="grid-row">
+                <span>December</span>
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input income-input" data-month="Dec" value="950" />
+                <input type="number" min="0" inputmode="decimal" step="0.01" class="money-input expense-input" data-month="Dec" value="820" />
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <div class="summary-card">
+              <span>Total Income</span>
+              <strong id="total-income">₹0.00</strong>
+            </div>
+            <div class="summary-card">
+              <span>Total Expense</span>
+              <strong id="total-expense">₹0.00</strong>
+            </div>
+            <div class="summary-card net-card">
+              <span>Net Balance</span>
+              <strong id="net-balance">₹0.00</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="chart-panel" class="tab-panel" role="tabpanel" aria-labelledby="tab-chart">
+        <div class="panel-card panel-chart-card">
+          <div class="panel-header">
+            <h2>Income vs Expense Chart</h2>
+            <p>View monthly income and expense bars side by side. Enter values in the Data tab to update the chart.</p>
+          </div>
+          <div class="chart-actions">
+            <button id="downloadChart" type="button" class="download-button">Download</button>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="budgetChart" aria-label="Income and Expense bar chart" role="img"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
